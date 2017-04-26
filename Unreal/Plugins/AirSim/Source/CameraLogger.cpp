@@ -119,9 +119,12 @@ uint32 FCameraLogger::Run()
 				auto physics_body = static_cast<msr::airlib::PhysicsBody*>(GameThread->fpv_vehicle_connector_->getPhysicsBody());
 				auto kinematics = physics_body->getKinematics();
 
-				GameThread->record_file << msr::airlib::Utils::getTimeSinceEpochMillis() << "\t";    
-				GameThread->record_file << kinematics.pose.position.x() << "\t" << kinematics.pose.position.y() << "\t" << kinematics.pose.position.z() << "\t";
-				GameThread->record_file << kinematics.pose.orientation.w() << "\t" << kinematics.pose.orientation.x() << "\t" << kinematics.pose.orientation.y() << "\t" << kinematics.pose.orientation.z() << "\t";
+				auto pose1 = GameThread->pawn1->getPose();
+
+				GameThread->record_file << "1" << "\t" << msr::airlib::Utils::getTimeSinceEpochMillis() << "\t";    
+
+				GameThread->record_file << pose1.position.x() << "\t" << pose1.position.y() << "\t" << pose1.position.z() << "\t";
+				GameThread->record_file << pose1.orientation.w() << "\t" << pose1.orientation.x() << "\t" << pose1.orientation.y() << "\t" << pose1.orientation.z() << "\t";
 				GameThread->record_file << "\n";
 
 				UAirBlueprintLib::LogMessage(TEXT("Screenshot saved to:"), filePath, LogDebugLevel::Success);
@@ -150,12 +153,14 @@ uint32 FCameraLogger::Run()
 			if (!imageSavedOk)
 				UAirBlueprintLib::LogMessage(TEXT("File save failed to:"), filePath, LogDebugLevel::Failure);
 			else {
-				auto physics_body = static_cast<msr::airlib::PhysicsBody*>(GameThread->fpv_vehicle_connector_->getPhysicsBody());
+				auto physics_body = static_cast<msr::airlib::PhysicsBody*>(GameThread->fpv_vehicle_connector_2_->getPhysicsBody());
 				auto kinematics = physics_body->getKinematics();
 
-				GameThread->record_file << msr::airlib::Utils::getTimeSinceEpochMillis() << "\t";
-				GameThread->record_file << kinematics.pose.position.x() << "\t" << kinematics.pose.position.y() << "\t" << kinematics.pose.position.z() << "\t";
-				GameThread->record_file << kinematics.pose.orientation.w() << "\t" << kinematics.pose.orientation.x() << "\t" << kinematics.pose.orientation.y() << "\t" << kinematics.pose.orientation.z() << "\t";
+				auto pose2 = GameThread->pawn2->getPose();
+
+				GameThread->record_file << "2" << "\t" << msr::airlib::Utils::getTimeSinceEpochMillis() << "\t";
+				GameThread->record_file << pose2.position.x() << "\t" << pose2.position.y() << "\t" << pose2.position.z() << "\t";
+				GameThread->record_file << pose2.orientation.w() << "\t" << pose2.orientation.x() << "\t" << pose2.orientation.y() << "\t" << pose2.orientation.z() << "\t";
 				GameThread->record_file << "\n";
 
 				UAirBlueprintLib::LogMessage(TEXT("Screenshot saved to:"), filePath, LogDebugLevel::Success);

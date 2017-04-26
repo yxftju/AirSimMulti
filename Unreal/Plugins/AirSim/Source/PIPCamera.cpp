@@ -14,6 +14,9 @@ APIPCamera::APIPCamera()
 
     static ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> seg_render_target_finder(TEXT("TextureRenderTarget2D'/AirSim/HUDAssets/SegmentationRenderTarget.SegmentationRenderTarget'"));
     seg_render_target_ = seg_render_target_finder.Object;
+
+	static ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> extra_render_target_finder(TEXT("TextureRenderTarget2D'/AirSim/HUDAssets/SegmentationRenderTarget.SegmentationRenderTarget'"));
+	extra_render_target_ = extra_render_target_finder.Object;
 }
 
 void APIPCamera::PostInitializeComponents()
@@ -27,6 +30,7 @@ void APIPCamera::PostInitializeComponents()
 	//screen_capture_3_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("SceneCaptureComponent3"));
     depth_capture_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("DepthCaptureComponent"));
     seg_capture_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("SegmentationCaptureComponent"));
+	extra_capture_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("SegmentationCaptureComponent"));
 }
 
 void APIPCamera::setToMainView()
@@ -71,12 +75,12 @@ void APIPCamera::activateCaptureComponent(const EPIPCameraType type)
 {
     USceneCaptureComponent2D* capture = getCaptureComponent(type, true);
     if (capture != nullptr) {
-        capture->TextureTarget = getTexureRenderTarget(type, false);
+        capture->TextureTarget = getTextureRenderTarget(type, false);
         capture->Activate();
     }
 }
 
-UTextureRenderTarget2D* APIPCamera::getTexureRenderTarget(const EPIPCameraType type, bool if_active)
+UTextureRenderTarget2D* APIPCamera::getTextureRenderTarget(const EPIPCameraType type, bool if_active)
 {
     switch (type) {
     case EPIPCameraType::PIP_CAMERA_TYPE_SCENE:

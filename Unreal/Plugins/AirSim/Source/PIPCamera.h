@@ -66,11 +66,13 @@ private:
 	UPROPERTY() USceneCaptureComponent2D* screen_capture_3_;
     UPROPERTY() USceneCaptureComponent2D* depth_capture_;
     UPROPERTY() USceneCaptureComponent2D* seg_capture_;
+	UPROPERTY() USceneCaptureComponent2D* extra_capture_;
     UPROPERTY() UCameraComponent*  camera_;
     UPROPERTY() UTextureRenderTarget2D* scene_render_target_;
 	UPROPERTY() UTextureRenderTarget2D* scene_render_target_2_;
     UPROPERTY() UTextureRenderTarget2D* depth_render_target_;
     UPROPERTY() UTextureRenderTarget2D* seg_render_target_;
+	UPROPERTY() UTextureRenderTarget2D* extra_render_target_;
 
     //UPROPERTY(BlueprintReadWrite, Category = "Cameras")
     EPIPCameraMode camera_mode_ = DefaultCameraMode;   
@@ -84,6 +86,6 @@ private:
     void deactivateMain();
     void deactivatePIP();
     void refreshCurrentMode();
-    UTextureRenderTarget2D* getTexureRenderTarget(const EPIPCameraType type, bool if_active);
+    UTextureRenderTarget2D* getTextureRenderTarget(const EPIPCameraType type, bool if_active);
 	void ReadPixelsNonBlocking(USceneCaptureComponent2D*, TArray<FColor>);
 };
