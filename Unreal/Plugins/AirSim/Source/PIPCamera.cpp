@@ -30,7 +30,7 @@ void APIPCamera::PostInitializeComponents()
 	//screen_capture_3_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("SceneCaptureComponent3"));
     depth_capture_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("DepthCaptureComponent"));
     seg_capture_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("SegmentationCaptureComponent"));
-	extra_capture_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("SegmentationCaptureComponent"));
+	// extra_capture_ = UAirBlueprintLib::GetActorComponent<USceneCaptureComponent2D>(this, TEXT("SegmentationCaptureComponent"));
 }
 
 void APIPCamera::setToMainView()
@@ -95,6 +95,10 @@ UTextureRenderTarget2D* APIPCamera::getTextureRenderTarget(const EPIPCameraType 
         if (!if_active || (static_cast<uint8>(enabled_camera_types_) & static_cast<uint8>(EPIPCameraType::PIP_CAMERA_TYPE_SEG)))
             return seg_render_target_;
         return nullptr;
+	case EPIPCameraType::PIP_CAMERA_TYPE_EXTRA:
+		if (!if_active || (static_cast<uint8>(enabled_camera_types_) & static_cast<uint8>(EPIPCameraType::PIP_CAMERA_TYPE_EXTRA)))
+			return extra_render_target_;
+		return nullptr;
     case EPIPCameraType::PIP_CAMERA_TYPE_NONE:
         return nullptr;
     default:
@@ -119,6 +123,10 @@ USceneCaptureComponent2D* APIPCamera::getCaptureComponent(const EPIPCameraType t
         if (!if_active || (static_cast<uint8>(enabled_camera_types_) & static_cast<uint8>(EPIPCameraType::PIP_CAMERA_TYPE_SEG)))
             return screen_capture_2_;
         return nullptr;
+	case EPIPCameraType::PIP_CAMERA_TYPE_EXTRA:
+		if (!if_active || (static_cast<uint8>(enabled_camera_types_) & static_cast<uint8>(EPIPCameraType::PIP_CAMERA_TYPE_EXTRA)))
+			return seg_capture_;
+		return nullptr;
     case EPIPCameraType::PIP_CAMERA_TYPE_NONE:
         return nullptr;
     default:

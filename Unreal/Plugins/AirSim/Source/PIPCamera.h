@@ -10,8 +10,9 @@ enum class EPIPCameraType : uint8
     PIP_CAMERA_TYPE_NONE = 0	UMETA(DisplayName="None"),
     PIP_CAMERA_TYPE_SCENE = 1	UMETA(DisplayName="Scene"),
     PIP_CAMERA_TYPE_DEPTH = 2	UMETA(DisplayName="Depth"),
-    PIP_CAMERA_TYPE_SEG = 4 	UMETA(DisplayName="Segmentation"),
-    PIP_CAMERA_TYPE_ALL = 127     UMETA(DisplayName="All")
+    PIP_CAMERA_TYPE_SEG = 4 		UMETA(DisplayName="Segmentation"),
+	PIP_CAMERA_TYPE_EXTRA = 6		UMETA(DisplayName = "Extra"),
+    PIP_CAMERA_TYPE_ALL = 127   UMETA(DisplayName="All")
 };
 ENUM_CLASS_FLAGS(EPIPCameraType)
 
